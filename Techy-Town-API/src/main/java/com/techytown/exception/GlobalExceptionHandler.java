@@ -1,13 +1,10 @@
 package com.techytown.exception;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 
 import javax.persistence.RollbackException;
 
 import org.springframework.core.convert.ConversionFailedException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -18,6 +15,12 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+	
+	@ExceptionHandler
+	public ResponseEntity<MyErrorDetails> customerException(CustomerException ce,WebRequest wr){
+		MyErrorDetails err = new MyErrorDetails(ce.getMessage(), wr.getDescription(true),LocalDateTime.now() );
+		return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);
+	}
 	
 	@ExceptionHandler
 	public ResponseEntity<MyErrorDetails> productException(ProductException pe,WebRequest wr){

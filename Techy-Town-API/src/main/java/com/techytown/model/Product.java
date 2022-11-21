@@ -46,11 +46,5 @@ public class Product {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Category category;
 	
-//	@Transient
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Cart cart;
-	
-	
 	
 }
