@@ -36,6 +36,9 @@ public class Orders {
 
 	private LocalDate deliveryDate;
 	
+	@JsonIgnore
+	@OneToOne(targetEntity = Cart.class)
+	private Cart cart;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "payments",referencedColumnName = "paymentId")

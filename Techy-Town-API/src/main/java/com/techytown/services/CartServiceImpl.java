@@ -52,7 +52,7 @@ public class CartServiceImpl implements CartService {
 				custCart.setDiscountedPrice(custCart.getDiscountedPrice()+discounted);
 				custCart.setMrp(custCart.getMrp()+actual);
 				
-
+				//here try to add duplicate products 
 				
 				customerRepo.save(cust);
 				return cartRepo.saveAndFlush(custCart);

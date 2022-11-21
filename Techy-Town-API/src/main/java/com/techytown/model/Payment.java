@@ -19,7 +19,7 @@ public class Payment {
 	private int paymentId;
 	
 	@NotNull(message = "Please Enter Amount To Pay.")
-	private int amt;
+	private Double amt;
 	
 	@Pattern(regexp = "^[0-9]{12}$")
 	private String creditCard;
