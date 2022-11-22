@@ -3,6 +3,7 @@ package com.techytown.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,11 +15,13 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Entity
 @Data
 @ToString
+@EqualsAndHashCode
 public class Category {
 
 	@Id
@@ -32,7 +35,7 @@ public class Category {
 	private String description;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "category")
+	@OneToMany(mappedBy = "category",cascade = CascadeType.REMOVE)
 	private List<Product> products = new ArrayList<>();
 	
 }
