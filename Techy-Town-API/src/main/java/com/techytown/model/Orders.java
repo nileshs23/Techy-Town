@@ -36,9 +36,9 @@ public class Orders {
 
 	private LocalDate deliveryDate;
 	
-	@Transient
-	@ManyToMany(mappedBy = "orders")
-	private List<Product> products = new ArrayList<>();
+	@JsonIgnore
+	@OneToOne(targetEntity = Cart.class)
+	private Cart cart;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "payments",referencedColumnName = "paymentId")

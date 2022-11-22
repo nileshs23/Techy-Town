@@ -26,7 +26,7 @@ public class Category {
 	private Integer categoryId;
 	
 	@NotNull(message = "Please Provide Category Name !")
-	private String categoryName;
+	private String type;
 	
 	@Size(min=0,max = 255,message = "Description Must be less than 255 Characters !")
 	private String description;
