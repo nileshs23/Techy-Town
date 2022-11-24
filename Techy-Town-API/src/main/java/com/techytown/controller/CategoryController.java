@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techytown.exception.CategoryException;
-import com.techytown.exception.CustomerException;
+import com.techytown.exception.UserException;
 import com.techytown.exception.ProductException;
 import com.techytown.model.Category;
 import com.techytown.model.Orders;
@@ -97,7 +97,7 @@ public class CategoryController {
 
 	
 	@PostMapping("/order")
-	public ResponseEntity<Orders> saveOrder(@RequestBody Orders order,@RequestParam Integer custID) throws CustomerException{
+	public ResponseEntity<Orders> saveOrder(@RequestBody Orders order,@RequestParam Integer custID) throws UserException{
 		Orders reported = orderService.checkoutItems(order, custID);
 		
 		return new ResponseEntity<Orders>(reported,HttpStatus.CREATED);

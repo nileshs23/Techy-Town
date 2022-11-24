@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.techytown.exception.CartException;
-import com.techytown.exception.CustomerException;
+import com.techytown.exception.UserException;
 import com.techytown.exception.ProductException;
 import com.techytown.model.Cart;
-import com.techytown.model.Customer;
+import com.techytown.model.User;
 import com.techytown.model.Product;
 import com.techytown.repository.CartRepository;
-import com.techytown.repository.CustomerRespository;
+import com.techytown.repository.UserRespository;
 import com.techytown.repository.ProductRepository;
 
 
@@ -21,7 +21,7 @@ import com.techytown.repository.ProductRepository;
 public class CartServiceImpl implements CartService {
 
 	@Autowired
-	private CustomerRespository customerRepo;
+	private UserRespository customerRepo;
 	
 	@Autowired
 	private CartRepository cartRepo;
@@ -30,12 +30,12 @@ public class CartServiceImpl implements CartService {
 	private ProductRepository productRepo;
 	
 	@Override
-	public Cart addProductToCart(Product products, Integer customerId) throws CustomerException,ProductException,CartException{
+	public Cart addProductToCart(Product products, Integer customerId) throws UserException,ProductException,CartException{
 		
-		Optional<Customer> customerOpt = customerRepo.findById(customerId);
+		Optional<User> customerOpt = customerRepo.findById(customerId);
 		
 		if(customerOpt.isPresent()) {
-			Customer cust = customerOpt.get();
+			User cust = customerOpt.get();
 			Optional<Cart> custCartOpt = cartRepo.findById(cust.getCart().getCartId());
 			Optional<Product> productOpt = productRepo.findById(products.getProductId());
 			
@@ -62,7 +62,7 @@ public class CartServiceImpl implements CartService {
 				throw new ProductException("Product Not Found !");
 			}
 		}else {
-			throw new CustomerException("Customer Not Found !");
+			throw new UserException("Customer Not Found !");
 		}
 		
 		
@@ -70,8 +70,8 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public Cart removeProductFromCart(Integer ProductId, Integer customerId)
-			throws ProductException, CustomerException{
-		 Optional<Customer> custOpt = customerRepo.findById(customerId);
+			throws ProductException, UserException{
+		 Optional<User> custOpt = customerRepo.findById(customerId);
 		 Optional<Product> prodOpt = productRepo.findById(ProductId);
 		 
 		 if(custOpt.isPresent() && prodOpt.isPresent()) {
@@ -92,8 +92,8 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Double totalAmount(Integer customerId) throws CustomerException,CartException {
-		Optional<Customer> custOpt = customerRepo.findById(customerId);
+	public Double totalAmount(Integer customerId) throws UserException,CartException {
+		Optional<User> custOpt = customerRepo.findById(customerId);
 		
 		if(custOpt.isPresent()) {
 			Optional<Cart> cartOpt =cartRepo.findById(custOpt.get().getCart().getCartId());
@@ -105,14 +105,14 @@ public class CartServiceImpl implements CartService {
 				throw new CartException("Cart Not Found !");
 			}
 		}else {
-			throw new CustomerException("Cusotmer Not Found !");
+			throw new UserException("Cusotmer Not Found !");
 		}
 	}
 
 	@Override
-	public Integer totalQty(Integer customerId) throws CustomerException,CartException {
+	public Integer totalQty(Integer customerId) throws UserException,CartException {
 		
-		Optional<Customer> custOpt = customerRepo.findById(customerId);
+		Optional<User> custOpt = customerRepo.findById(customerId);
 		
 		if(custOpt.isPresent()) {
 			Optional<Cart> cartOpt =cartRepo.findById(custOpt.get().getCart().getCartId());
@@ -123,14 +123,14 @@ public class CartServiceImpl implements CartService {
 				throw new CartException("Cart Not Found !");
 			}
 		}else {
-			throw new CustomerException("Cusotmer Not Found !");
+			throw new UserException("Cusotmer Not Found !");
 		}
 	}
 
 	@Override
-	public List<Product> allCartItems(Integer customerId) throws CartException, CustomerException {
+	public List<Product> allCartItems(Integer customerId) throws CartException, UserException {
 		
-		Optional<Customer> custOpt = customerRepo.findById(customerId);
+		Optional<User> custOpt = customerRepo.findById(customerId);
 		
 		if(custOpt.isPresent()) {
 			Optional<Cart> cartOpt =cartRepo.findById(custOpt.get().getCart().getCartId());
@@ -141,7 +141,7 @@ public class CartServiceImpl implements CartService {
 				throw new CartException("Cart Not Found !");
 			}
 		}else {
-			throw new CustomerException("Cusotmer Not Found !");
+			throw new UserException("Cusotmer Not Found !");
 		}
 	}
 

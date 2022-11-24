@@ -6,13 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.techytown.exception.CustomerException;
+import com.techytown.exception.UserException;
 import com.techytown.model.Cart;
-import com.techytown.model.Customer;
+import com.techytown.model.User;
 import com.techytown.model.Orders;
 import com.techytown.model.Payment;
 import com.techytown.repository.CartRepository;
-import com.techytown.repository.CustomerRespository;
+import com.techytown.repository.UserRespository;
 import com.techytown.repository.OrderRepository;
 import com.techytown.repository.PaymentRepository;
 
@@ -23,14 +23,14 @@ public class OrderServiceImpl implements OrderService {
 	private OrderRepository orderRepo;
 	
 	@Autowired
-	private CustomerRespository customerRepo;
+	private UserRespository customerRepo;
 	
 	@Autowired
 	private CartRepository cartRepo;
 
 	@Override
-	public Orders checkoutItems(Orders order,Integer customerId) throws CustomerException{
-		Optional<Customer> custOpt = customerRepo.findById(customerId);
+	public Orders checkoutItems(Orders order,Integer customerId) throws UserException{
+		Optional<User> custOpt = customerRepo.findById(customerId);
 		
 		if(custOpt.isPresent()) {
 			
@@ -43,11 +43,11 @@ public class OrderServiceImpl implements OrderService {
 				
 				return orderRepo.save(order);
 			}else {
-				throw new CustomerException("Cart Not Found For This User !");
+				throw new UserException("Cart Not Found For This User !");
 			}
 			
 		}else {
-			throw new CustomerException("No Customer Found !");
+			throw new UserException("No Customer Found !");
 		}
 	}
 
