@@ -25,14 +25,10 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cartId;
 	
-	private int productCount=0;
-	
-	private Double mrp=0.0;
-	
-	private Double discountedPrice=0.0;
-	
 	@ElementCollection(targetClass = Product.class)
 	private List<Product> products = new ArrayList<>();
+	
+	private double totalExpenditure;
 	
 	@OneToOne
 	private Customer customer;

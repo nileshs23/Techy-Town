@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.techytown.exception.CartException;
 import com.techytown.exception.CustomerException;
+import com.techytown.exception.ProductException;
 import com.techytown.model.Cart;
 import com.techytown.model.Customer;
 import com.techytown.model.Product;
@@ -28,7 +30,7 @@ public class CartServiceImpl implements CartService {
 	private ProductRepository productRepo;
 	
 	@Override
-	public Cart addProductToCart(Product products, Integer customerId) throws CustomerException{
+	public Cart addProductToCart(Product products, Integer customerId) throws CustomerException,ProductException,CartException{
 		
 		Optional<Customer> customerOpt = customerRepo.findById(customerId);
 		
@@ -37,35 +39,110 @@ public class CartServiceImpl implements CartService {
 			Optional<Cart> custCartOpt = cartRepo.findById(cust.getCart().getCartId());
 			Optional<Product> productOpt = productRepo.findById(products.getProductId());
 			
-			if(custCartOpt.isPresent() && productOpt.isPresent()) {
-				Cart custCart = custCartOpt.get();
-				Product product = productOpt.get();
-				
-				Double actual = product.getMrp();
-				Double discounted = product.getDiscountPrice();
-				
-				List<Product> cartProduct = custCart.getProducts();
-				
-				cartProduct.add(products);
-				
-				custCart.setProductCount(cartProduct.size());
-				custCart.setDiscountedPrice(custCart.getDiscountedPrice()+discounted);
-				custCart.setMrp(custCart.getMrp()+actual);
-				
-				//here try to add duplicate products
-				
-				customerRepo.save(cust);
-				return cartRepo.saveAndFlush(custCart);
+			if(productOpt.isPresent()) {
+				if(custCartOpt.isPresent()) {
+					Cart custCart = custCartOpt.get();
 					
+					List<Product> cartProduct = custCart.getProducts();
+
+					cartProduct.add(products);
+					Double total =custCart.getTotalExpenditure();
+					custCart.setTotalExpenditure(total+products.getDiscountPrice());
+//					cartProduct.contains(product);
+
+					//here try to add duplicate products
+					
+					customerRepo.save(cust);
+					return cartRepo.saveAndFlush(custCart);
+				}else {
+					throw new CartException("Cart Not Found.");
+				}		
 				
 			}else {
-				throw new CustomerException("Cart or Product Not Found !");
+				throw new ProductException("Product Not Found !");
 			}
 		}else {
 			throw new CustomerException("Customer Not Found !");
 		}
 		
 		
+	}
+
+	@Override
+	public Cart removeProductFromCart(Integer ProductId, Integer customerId)
+			throws ProductException, CustomerException{
+		 Optional<Customer> custOpt = customerRepo.findById(customerId);
+		 Optional<Product> prodOpt = productRepo.findById(ProductId);
+		 
+		 if(custOpt.isPresent() && prodOpt.isPresent()) {
+			 Optional<Cart> custCartOpt = cartRepo.findById(custOpt.get().getCart().getCartId());
+			 List<Product>products = custCartOpt.get().getProducts();
+			 
+			 Double total = custCartOpt.get().getTotalExpenditure();
+			 
+			 if(products.contains(prodOpt.get())) {
+				 products.remove(prodOpt.get());
+				 custCartOpt.get().setTotalExpenditure(total -prodOpt.get().getDiscountPrice());
+			 }
+			 
+			return cartRepo.save(custCartOpt.get());
+		 }else {
+			 throw new ProductException("Product Not Found !s");
+		 }
+	}
+
+	@Override
+	public Double totalAmount(Integer customerId) throws CustomerException,CartException {
+		Optional<Customer> custOpt = customerRepo.findById(customerId);
+		
+		if(custOpt.isPresent()) {
+			Optional<Cart> cartOpt =cartRepo.findById(custOpt.get().getCart().getCartId());
+			
+			if(cartOpt.isPresent()) {
+				
+				 return cartOpt.get().getTotalExpenditure();
+			}else {
+				throw new CartException("Cart Not Found !");
+			}
+		}else {
+			throw new CustomerException("Cusotmer Not Found !");
+		}
+	}
+
+	@Override
+	public Integer totalQty(Integer customerId) throws CustomerException,CartException {
+		
+		Optional<Customer> custOpt = customerRepo.findById(customerId);
+		
+		if(custOpt.isPresent()) {
+			Optional<Cart> cartOpt =cartRepo.findById(custOpt.get().getCart().getCartId());
+			
+			if(cartOpt.isPresent()) {
+				 return cartOpt.get().getProducts().size();
+			}else {
+				throw new CartException("Cart Not Found !");
+			}
+		}else {
+			throw new CustomerException("Cusotmer Not Found !");
+		}
+	}
+
+	@Override
+	public List<Product> allCartItems(Integer customerId) throws CartException, CustomerException {
+		
+		Optional<Customer> custOpt = customerRepo.findById(customerId);
+		
+		if(custOpt.isPresent()) {
+			Optional<Cart> cartOpt =cartRepo.findById(custOpt.get().getCart().getCartId());
+			
+			if(cartOpt.isPresent()) {
+				 return cartOpt.get().getProducts();
+			}else {
+				throw new CartException("Cart Not Found !");
+			}
+		}else {
+			throw new CustomerException("Cusotmer Not Found !");
+		}
 	}
 
 }

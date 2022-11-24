@@ -5,14 +5,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -41,6 +39,9 @@ public class Product {
 	
 	@NotNull(message = "Please Enter Discounted Price.")
 	private Double discountPrice;
+	
+	@NotNull(message = "Provide IMG url !")
+	private String img;
 	
 	@JsonIgnore
 	@ManyToOne(cascade = CascadeType.PERSIST)
