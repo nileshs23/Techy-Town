@@ -42,8 +42,7 @@ public class User {
 	@NotEmpty(message = "Enter Email ID !")
 	@Column(nullable = false,unique = true)
 	private String email;
-	
-	@NotEmpty(message = "Enter Unique Password")
+
 	private String password;
 	
 	@ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)

@@ -38,7 +38,7 @@ public class ProductController {
 		return new ResponseEntity<Product>(saved,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/products")
+	@GetMapping("/techytown/products")
 	public ResponseEntity<List<Product>> allProducts() throws ProductException{
 		List<Product> products = prodService.products();
 		
