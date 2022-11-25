@@ -37,10 +37,9 @@ public class OrderServiceImpl implements OrderService {
 			Optional<Cart> shoppingCartOpt =  cartRepo.findById(custOpt.get().getCart().getCartId());
 			
 			if(shoppingCartOpt.isPresent() 
-					&& shoppingCartOpt.get().getProductCount() >0
-					&& shoppingCartOpt.get().getDiscountedPrice() >0) {
+					&& shoppingCartOpt.get().getProducts().size() >0) {
 				order.setCart(shoppingCartOpt.get());
-				order.getPayment().setAmt(shoppingCartOpt.get().getDiscountedPrice());
+				order.getPayment().setAmt(shoppingCartOpt.get().getTotalExpenditure());
 				
 				return orderRepo.save(order);
 			}else {

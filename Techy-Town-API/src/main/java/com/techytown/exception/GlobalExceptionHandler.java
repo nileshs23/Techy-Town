@@ -23,6 +23,12 @@ public class GlobalExceptionHandler {
 	}
 	
 	@ExceptionHandler
+	public ResponseEntity<MyErrorDetails> cartException(CartException ce,WebRequest wr){
+		MyErrorDetails err = new MyErrorDetails(ce.getMessage(), wr.getDescription(true),LocalDateTime.now() );
+		return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);
+	}
+	
+	@ExceptionHandler
 	public ResponseEntity<MyErrorDetails> productException(ProductException pe,WebRequest wr){
 		MyErrorDetails err = new MyErrorDetails(pe.getMessage(), wr.getDescription(true),LocalDateTime.now() );
 		return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);
