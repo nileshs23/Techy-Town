@@ -45,6 +45,7 @@ public class User {
 
 	private String password;
 	
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.MERGE,fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role",
 	joinColumns = @JoinColumn(name="UserId",referencedColumnName = "userId"),

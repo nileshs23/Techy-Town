@@ -3,6 +3,7 @@ package com.techytown.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,11 +32,10 @@ public class SecurityConfig {
 	//This manages the routes
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+        http.csrf().disable()
             .authorizeHttpRequests((authz) -> authz
-            		.antMatchers("/","/register","/techytown/**",
-            				"/swagger-ui/**","/v3/api-docs/**",
-                    		"/swagger-ui.html").permitAll()
+            		.antMatchers("/","/resources/**","/register/**").permitAll()
+//            		.antMatchers(HttpMethod.POST, "/register/**").permitAll()
             		.antMatchers("/admin/**").hasRole("ADMIN")
             		.anyRequest().authenticated()
             		)
@@ -59,10 +59,17 @@ public class SecurityConfig {
             		.exceptionHandling(e->e
             				.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
             		)
+
             		;
         
         return http.build();
     }
+	
+//	To use in postman use this after htt[
+//	.csrf().disable()
+	
+//	"/register","/techytown/**"
+	
 //	This will be used to encrypt passwords
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -74,14 +81,18 @@ public class SecurityConfig {
 		auth.userDetailsService(customUserDetailService);
 	}
 	
-	
+//	private static final String[] AUTH_WHITELIST = {
+//	        "/swagger-resources/**",
+//	        "/swagger-ui.html",
+//	        "/v2/api-docs",
+//	        "/webjars/**"
+//	};
 	
 	
 //	This is for ignoring your front end folders
-//	@Bean
-//	public void configure(WebSecurity web) throws Exception{
-//		web.ignoring().antMatchers("/resources");
-//	}
+	public void configure(WebSecurity web) throws Exception{
+		web.ignoring().antMatchers("/resources/**","/static/**");
+	}
 	
 
 

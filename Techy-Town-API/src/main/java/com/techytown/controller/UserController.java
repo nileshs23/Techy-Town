@@ -35,10 +35,11 @@ public class UserController {
 	private ProductService productServ;
 	
 	
-	@GetMapping("/")
-	public ResponseEntity<String> helloUsingSecurity(){
-		return new ResponseEntity<String>("Hello Security Is Here !",HttpStatus.CREATED);
-	}
+//	@GetMapping("/")
+//	public ResponseEntity<String> helloUsingSecurity(){
+//		return new ResponseEntity<String>("Hello Security Is Here !",HttpStatus.CREATED);
+//	}
+	
 	
 	@PostMapping("/customer")
 	public ResponseEntity<User> registerCustomer(@Valid @RequestBody User user){
