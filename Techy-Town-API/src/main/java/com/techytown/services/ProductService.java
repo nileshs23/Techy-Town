@@ -9,7 +9,7 @@ import com.techytown.model.Product;
 
 public interface ProductService {
 	
-	public Product saveProduct(Product product,Integer categoryId  ) throws ProductException,CategoryException;
+	public Product saveProduct(Product product) throws ProductException;
 
 	public Category getCategory(Integer productId) throws ProductException,CategoryException;
 	

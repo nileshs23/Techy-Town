@@ -23,26 +23,12 @@ public class ProductServiceImpl implements ProductService {
 	private CategoryRespository catRepo;
 	
 	@Override
-	public Product saveProduct(Product product,Integer categoryId) throws ProductException, CategoryException {
+	public Product saveProduct(Product product) throws ProductException {
 		// TODO Auto-generated method stub
-		Optional<Product> productOpt = productRepo.findById(product.getProductId());
+				
+		Product saved = productRepo.save(product);
 		
-		if(productOpt.isEmpty()) {
-			Optional<Category> catOpt = catRepo.findById(categoryId);
-			if(catOpt.isPresent()){
-				
-				Product saved = productRepo.save(product);
-				saved.setCategory(catOpt.get());
-				
-				return productRepo.saveAndFlush(saved);
-				
-			}else {
-				throw new CategoryException("Category Does Not Exists !");
-			}
-			
-		}else {
-			throw new ProductException("Product Already Exists !");
-		}
+		return productRepo.saveAndFlush(saved);
 		
 		
 //		Product saved = catRepo.findById(categoryId).map(

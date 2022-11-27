@@ -23,15 +23,8 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	
 	@Override
-	public Category addNewCategory(Category category) throws CategoryException {
-		
-		Optional<Category> catExistsOpt = catRepo.findById(category.getCategoryId());
-		
-		if(catExistsOpt.isEmpty()) {
-			return catRepo.save(category);
-		}else {
-			throw new CategoryException("Category Already Exists !");
-		}
+	public Category addNewCategory(Category category){		
+		return catRepo.save(category);
 	}
 
 	@Override

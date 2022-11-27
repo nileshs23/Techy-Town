@@ -58,14 +58,9 @@ public class User {
 
 	public User(User user) {
 		super();
-		this.firstName = user.getFirstName();
-		this.lastName = user.getLastName();
 		this.email = user.getEmail();
 		this.password = user.getPassword();
 		this.roles = user.getRoles();
-		this.cart = user.getCart();
-	}
-
-	
+	}	
 }
 

@@ -19,13 +19,13 @@ import org.springframework.stereotype.Component;
 import com.techytown.model.Role;
 import com.techytown.model.User;
 import com.techytown.repository.RoleRepository;
-import com.techytown.repository.UserRespository;
+import com.techytown.repository.UserRepository;
 
 @Component
 public class googleOAuth2Handler implements AuthenticationSuccessHandler{
 	
 	@Autowired
-	UserRespository userRepo;
+	UserRepository userRepo;
 	
 	@Autowired
 	RoleRepository roleRepo;
