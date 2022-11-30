@@ -1,6 +1,7 @@
 package com.techytown.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class Customer {
 	@NotNull(message = "Please Enter Your Las Name")
 	private String lastName;
 	
+	@Column(unique = true)
 	private String contactNo;
 	
 	private String password;

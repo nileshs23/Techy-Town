@@ -13,7 +13,7 @@ import com.techytown.model.Cart;
 import com.techytown.model.Customer;
 import com.techytown.model.Product;
 import com.techytown.repository.CartRepository;
-import com.techytown.repository.CustomerRespository;
+import com.techytown.repository.CustomerRepository;
 import com.techytown.repository.ProductRepository;
 
 
@@ -21,7 +21,7 @@ import com.techytown.repository.ProductRepository;
 public class CartServiceImpl implements CartService {
 
 	@Autowired
-	private CustomerRespository customerRepo;
+	private CustomerRepository customerRepo;
 	
 	@Autowired
 	private CartRepository cartRepo;

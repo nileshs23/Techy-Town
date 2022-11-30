@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,7 @@ import com.techytown.services.PaymentService;
 import com.techytown.services.ProductService;
 
 @RestController
+@RequestMapping("/admin")
 public class CategoryController {
 
 	@Autowired
@@ -59,8 +61,8 @@ public class CategoryController {
 		return new ResponseEntity<Category>(updatedCat,HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/category")
-	public ResponseEntity<Category> removeCategory(@RequestParam Integer catID) throws ProductException, CategoryException{
+	@DeleteMapping("/category/{catId}")
+	public ResponseEntity<Category> removeCategory(@PathVariable(name = "catId",required = true) Integer catID) throws ProductException, CategoryException{
 		Category removedCat = catService.removeCategory(catID);
 		
 		return new ResponseEntity<Category>(removedCat,HttpStatus.OK);

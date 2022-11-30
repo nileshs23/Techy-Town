@@ -12,7 +12,7 @@ import com.techytown.model.Customer;
 import com.techytown.model.Orders;
 import com.techytown.model.Payment;
 import com.techytown.repository.CartRepository;
-import com.techytown.repository.CustomerRespository;
+import com.techytown.repository.CustomerRepository;
 import com.techytown.repository.OrderRepository;
 import com.techytown.repository.PaymentRepository;
 
@@ -23,7 +23,7 @@ public class OrderServiceImpl implements OrderService {
 	private OrderRepository orderRepo;
 	
 	@Autowired
-	private CustomerRespository customerRepo;
+	private CustomerRepository customerRepo;
 	
 	@Autowired
 	private CartRepository cartRepo;
