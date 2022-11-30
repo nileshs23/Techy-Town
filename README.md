@@ -126,56 +126,53 @@ First clone the project and let STS4 build its dependecies. Maven --> Update Pro
 
 Use this to get insights of signup and login functionality.
 
-SignUp Controller :-
-
-Login Controller :-
-
-ID Controller :-
+Admin Controller -> register admin -> Login -> perform CRUD operations -> get insights -> Log Out From the System
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Modules
-This Application Consist 7 Modules
+This Application Consist 6 Modules
 
-- Vaccine Registration Module
-- Booking Appointment Module.
-- Vaccination Center Module.
-- Vaccine Module.
-- Vaccine Inventory Module.
-- Search Module.
+- Login and Signup For Admin/User Module.
+- Category Registration Module
+- Product  Registration Module.
+- Cart Module.
+- Orders Module.
+- Payment Module.
 
-## Vaccine Retistration Module
-- This Module Will Take User Mobile Number For Registration.
-- User Can Add The Member In the Member List.
-- User Can See the Status Of Each Member.
 
-## Booking AppointMent Module
-- In this module User can Serach Member and see the availability of Vaccination Center.
-- User can select center, book slots. 
-- User can book appointment for particular data.
+## Login & Signup Modules
 
-## Vaccination Center Module
-This Module Is for Admin.
+- To perform any Operattion below this User / Admin needs to be loggedin.
+- Payment History.
 
-- Admin can add Center for Vaccination along with its address,city,pincode.
-- This Module is Capable Of Providing Center Details as per State, City Or Pincode.
+## Category Registration Module
+This modules CRUD operation belongs to ADMIN only !
 
-## Vaccine Module
-For Covid-19 new Vaccine are coming in the Market.
-- All Vaccines Enteries Should Be Added And Managed By Admin.
+- This Module Will Take Add Category To Database
+- Only Admin Can Add The Categories.
+- User Can See the category.
 
-## Vaccine Inventory Module
+##  Product  Registration Module
+- In this module User can Serach Products based upon ID/Name/Category.
+- User can select cart and Add Products To it. 
 
-- This Module is Primarly Responsible for Enteries of Vaccines Centerwise On a given Date.
+## Cart Module.
 
-## Search Module
+- User Can See Cart Details like total Amount / Qty / Products ,etc.
+- This Module is Capable checkout all items.
 
-- Module Should Be Capable Of Seraching IdCards Of Users.
-- Vaccine Registration.
-- Member History.
-- Vaccination Center.
+## Orders Module
+
+- This is Of Providing Orders and Payment Gateway
+
+## Payment Module
+
+- This Module is Primarly Responsible for Enteries of Payment Details.
+
+
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -185,11 +182,12 @@ For Covid-19 new Vaccine are coming in the Market.
 - [x] Made mappings
 - [x] Designed Database using mySql 8.0
 - [x] Added Additional Exceptions and Dependencies.
-- [x] Added "signUp" logics with Controlller.
-- [x] Added "Login" logics with Controlller.
+- [x] Added "Admin Controller" logics with Controlller.
+- [x] Added "User Controller" logics with Controlller.
 - [x] Added "ID" logics with Controlller.
 - [x] Tested Using Postman
 - [x] Tested Using Swagger
+- [ ] Uploading on AWS
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -204,10 +202,9 @@ If you have a suggestion that would make this better, please fork the repo and c
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Create your own feature Branch (`git checkout -b feature/AmazingFeature`)
+3.Please Don't Push or commit on this project.
+4.You can always make use of it as reference point of view (If you want to learn).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -215,11 +212,7 @@ Don't forget to give the project a star! Thanks again!
 
 <!-- Contributors -->
 ## contributors
-* Harshit Bansal
-* Nilesh Solaki
-* Pawan Yadav
-* Anup Gautam
-* Shivani Gupta
+* Nilesh Solanki - nileshs2398@gmail..com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -228,7 +221,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-We are always looking for ways to improve our Application, and I would like to request your feedback on our latest project. Your opinions matter to us and your feedback is used to improve how we work and ensure we deliver a consistently high-quality service.
+We are always looking for ways to improve our Application, and I would like to request your feedback on our latest project. Your opinions matter to us and your feedback will be used for further improvements. So please share youre valuable feedback.
 
 Thank You ,
 * Masai School
