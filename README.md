@@ -101,7 +101,7 @@ This is an example of how to list things you need to use the software and how to
    https://mvnrepository.com/
    ```
    
-    * MySQL 8.0.30 or any latest Database Software
+   * MySQL 8.0.30 or any latest Database Software
 
  ```sh
    https://dev.mysql.com/downloads/installer/
