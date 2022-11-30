@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
 				
 				return orderRepo.save(order);
 			}else {
-				throw new CustomerException("Cart Not Found For This User !");
+				throw new CustomerException("Check Cart Once Again !");
 			}
 			
 		}else {

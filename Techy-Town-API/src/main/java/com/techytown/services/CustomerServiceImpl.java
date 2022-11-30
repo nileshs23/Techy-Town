@@ -70,7 +70,7 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		if(validUserSession.isPresent()) {
 			CurrentUserSession cus= validUserSession.get();
-			cus.getUserId();
+//			cus.getUserId();
 			
 			Customer cust = customerRepo.findByContactNo(contactNo);
 			

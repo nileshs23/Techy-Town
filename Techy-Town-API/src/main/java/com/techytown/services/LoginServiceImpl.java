@@ -7,9 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.techytown.exception.AuthenticationException;
+import com.techytown.model.Admin;
+import com.techytown.model.AdminDTO;
+import com.techytown.model.CurrentAdminSession;
 import com.techytown.model.CurrentUserSession;
 import com.techytown.model.Customer;
 import com.techytown.model.CustomerDTO;
+import com.techytown.repository.AdminRepository;
+import com.techytown.repository.AdminSessionRepository;
 import com.techytown.repository.CustomerRepository;
 import com.techytown.repository.UserSessionRepository;
 
@@ -23,6 +28,13 @@ public class LoginServiceImpl implements LoginServices {
 	
 	@Autowired
 	private UserSessionRepository userSession;
+	
+	@Autowired
+	private AdminRepository adminRepository;
+	
+	@Autowired
+	private AdminSessionRepository adminSession;
+	
 	
 
 	@Override
@@ -76,5 +88,60 @@ public class LoginServiceImpl implements LoginServices {
 		
 		throw new AuthenticationException("User Not Logged In with this number");
 	}
+
+
+	@Override
+	public String logInToAdmin(AdminDTO admindto) throws AuthenticationException {
+		
+		Admin existingAdmin = adminRepository.findByContactNo(admindto.getContactNo());
+		
+		if(existingAdmin == null) {
+			throw new AuthenticationException("No Admin Found with this Mobile Number !");
+		}
+		
+		Optional<CurrentAdminSession> validAdminSessionOpt = adminSession.findById(existingAdmin.getAdminId());
+		
+//		System.out.println(validUserSessionOpt.get());
+		
+		if(validAdminSessionOpt.isPresent()) {
+			throw new AuthenticationException("Admin Already logged In with this Number !");
+		}
+		
+		if(existingAdmin.getPassword().equals(admindto.getPassword())) {
+			
+			
+			String key = RandomString.make(6);
+			
+			CurrentAdminSession adminSes =  
+					new CurrentAdminSession(existingAdmin.getAdminId(), key,LocalDateTime.now());
+			
+			adminSession.save(adminSes);
+			
+			return adminSes.toString();
+			
+			
+		}else {
+			throw new AuthenticationException("Please Enter a valid password");
+		}
+	}
+
+
+	@Override
+	public String logOutFromAdmin(String key) throws AuthenticationException {
+
+		Optional<CurrentAdminSession> validAdminSession  = adminSession.findByUuid(key);
+		
+		if(validAdminSession.isPresent()) {
+			CurrentAdminSession cas=(validAdminSession.get());
+					adminSession.delete(cas);
+					
+			return " Admin with Id: "+cas.getAdminId()+" Logged Out Successfully !";
+			
+		}
+		
+		throw new AuthenticationException("Admin Not Logged In with this number");
+	}
+	
+	
 
 }
