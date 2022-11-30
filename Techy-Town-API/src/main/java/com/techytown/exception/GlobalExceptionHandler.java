@@ -17,6 +17,12 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class GlobalExceptionHandler {
 	
 	@ExceptionHandler
+	public ResponseEntity<MyErrorDetails> authException(AuthenticationException ce,WebRequest wr){
+		MyErrorDetails err = new MyErrorDetails(ce.getMessage(), wr.getDescription(true),LocalDateTime.now() );
+		return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);
+	}
+	
+	@ExceptionHandler
 	public ResponseEntity<MyErrorDetails> customerException(CustomerException ce,WebRequest wr){
 		MyErrorDetails err = new MyErrorDetails(ce.getMessage(), wr.getDescription(true),LocalDateTime.now() );
 		return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);

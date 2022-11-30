@@ -8,10 +8,13 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.techytown.exception.AuthenticationException;
 import com.techytown.exception.CategoryException;
 import com.techytown.exception.ProductException;
 import com.techytown.model.Category;
+import com.techytown.model.CurrentAdminSession;
 import com.techytown.model.Product;
+import com.techytown.repository.AdminSessionRepository;
 import com.techytown.repository.CategoryRespository;
 
 @Service
@@ -21,17 +24,28 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryRespository catRepo;
 	
+	@Autowired
+	private AdminSessionRepository adminSessionRepository;
+	
 	
 	@Override
-	public Category addNewCategory(Category category) throws CategoryException {
+	public Category addNewCategory(Category category,String uuid) 
+			throws CategoryException,AuthenticationException{
 		
-		Optional<Category> catExistsOpt = catRepo.findById(category.getCategoryId());
+		Optional<CurrentAdminSession> activeSession = adminSessionRepository.findByUuid(uuid);
 		
-		if(catExistsOpt.isEmpty()) {
-			return catRepo.save(category);
+		if(activeSession.isPresent()) {
+			Optional<Category> catExistsOpt = catRepo.findById(category.getCategoryId());
+			
+			if(catExistsOpt.isEmpty()) {
+				return catRepo.save(category);
+			}else {
+				throw new CategoryException("Category Already Exists !");
+			}
 		}else {
-			throw new CategoryException("Category Already Exists !");
+			throw new AuthenticationException("Please Login as Admin !");
 		}
+		
 	}
 
 	@Override
@@ -52,29 +66,46 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public Category updateCategory(Category category) throws CategoryException {
+	public Category updateCategory(Category category,String uuid) throws CategoryException,AuthenticationException {
 		
-		Optional<Category> catOpt = catRepo.findById(category.getCategoryId());
+		Optional<CurrentAdminSession> activeSession = adminSessionRepository.findByUuid(uuid);
 		
-		if(catOpt.isPresent()) {
-			return catRepo.save(catOpt.get());
+		if(activeSession.isPresent()) {
+			
+			Optional<Category> catOpt = catRepo.findById(category.getCategoryId());
+			
+			if(catOpt.isPresent()) {
+				return catRepo.save(catOpt.get());
+			}else {
+				throw new CategoryException("Category Not Found !");
+			}
+			
 		}else {
-			throw new CategoryException("Category Not Found !");
+			throw new AuthenticationException("First Login As Admin ! ");
 		}
+		
 	}
 
 	@Override
-	public Category removeCategory(Integer catId) throws CategoryException {
+	public Category removeCategory(Integer catId,String uuid) throws CategoryException,AuthenticationException {
 		
-		Optional<Category> catOpt = catRepo.findById(catId);
+		Optional<CurrentAdminSession> activeSession = adminSessionRepository.findByUuid(uuid);
 		
-		if(catOpt.isPresent()) {
-			Category cat = catOpt.get();
-			catRepo.delete(cat);
-			return cat;
+		if(activeSession.isPresent()) {
+			Optional<Category> catOpt = catRepo.findById(catId);
+			
+			if(catOpt.isPresent()) {
+				Category cat = catOpt.get();
+				catRepo.delete(cat);
+				return cat;
+			}else {
+				throw new CategoryException("Category Not Found !");
+			}
 		}else {
-			throw new CategoryException("Category Not Found !");
+			throw new AuthenticationException("Login As Admin !");
 		}
+		
+		
 		
 	}
 

@@ -19,8 +19,10 @@ public class PaymentServiceImpl implements PaymentService {
 	private PaymentRepository paymentRepo;
 
 	@Override
-	public List<Payment> getAllPayments() {
-		return paymentRepo.findAll();
+	public Integer getAllPayments() {
+		// TODO Auto-generated method stub
+		List<Payment> paid = paymentRepo.findAll();
+		return paid.size();
 	}
 	
 	
