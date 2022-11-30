@@ -9,9 +9,10 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/53571060/204812144-d54bc1e8-78ee-4913-8f10-0f29b54c9cbf.png" />
+</p>
 
-
-  <h3 align="center">Techy-Town : Online Store For Geeks </h3>
 
   <p align="center">
     API Gateway For Shopping the Techy Products !
@@ -58,7 +59,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![FINALERD_GIT](https://user-images.githubusercontent.com/53571060/204786872-fd1a2e88-5c18-4725-801f-e61e04a0f50a.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/53571060/204786872-fd1a2e88-5c18-4725-801f-e61e04a0f50a.png" />
+</p>
+
 
 
 This application will facilitate the customer as well as Admin to order the products you Love.
