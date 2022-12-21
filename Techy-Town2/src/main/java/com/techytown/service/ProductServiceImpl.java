@@ -10,7 +10,7 @@ import com.techytown.exceptions.CategoryException;
 import com.techytown.exceptions.ProductException;
 import com.techytown.models.Category;
 import com.techytown.models.Product;
-import com.techytown.repository.CategoryRespository;
+import com.techytown.repository.CategoryRepository;
 import com.techytown.repository.ProductRepository;
 
 @Service
@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
 	private ProductRepository productRepo;
 	
 	@Autowired
-	private CategoryRespository catRepo;
+	private CategoryRepository catRepo;
 	
 	@Override
 	public Product saveProduct(Product product,Integer categoryId) throws ProductException, CategoryException {

@@ -18,6 +18,12 @@ import javax.persistence.RollbackException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	
+	@ExceptionHandler(OrderException.class)
+	public ResponseEntity<MyErrorDetails> orderException(OrderException oe,WebRequest wr){
+		MyErrorDetails err = new MyErrorDetails(oe.getMessage(), wr.getDescription(true),LocalDateTime.now() );
+		return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);
+	}
+	
 	@ExceptionHandler(CartException.class)
 	public ResponseEntity<MyErrorDetails> cartException(CartException ce,WebRequest wr){
 		MyErrorDetails err = new MyErrorDetails(ce.getMessage(), wr.getDescription(true),LocalDateTime.now() );

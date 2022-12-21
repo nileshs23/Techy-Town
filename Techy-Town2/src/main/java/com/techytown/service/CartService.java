@@ -11,13 +11,13 @@ import com.techytown.models.Product;
 
 public interface CartService {
 	
-	public Cart addProductToCart(CartDTO items,Long userID) 
+	public Cart addProductToCart(CartDTO items,String username) 
 			throws ProductException,CartException;
 	
-	public Cart removeProductFromCart(Integer ProductId,Long userId) 
-			throws ProductException;
+	public Cart removeProductFromCart(Integer ProductId,String username) 
+			throws ProductException,CartException;
 	
-	public List<Product> allCartItems(Long userId);
+	public List<Product> allCartItems(String username);
 
-	public Double totalAmount(Long userId) throws CartException;
+	public Double totalAmount(String username) throws CartException;
 }

@@ -44,7 +44,7 @@ public class User {
   private Set<Role> roles = new HashSet<>();
   
   @JsonIgnore
-  @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+  @OneToOne(cascade = CascadeType.ALL)
   private Cart cart;
   
   @OneToMany(fetch = FetchType.LAZY,mappedBy = "user",targetEntity = Card.class)

@@ -1,15 +1,14 @@
 package com.techytown.models;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 
@@ -29,18 +28,12 @@ public class Orders {
 	@Enumerated
 	private OrderStatus status = OrderStatus.ORDER_IN_PROCESS;
 	
-	private LocalDate orderingDate;
+	private LocalDateTime orderingDate;
 
-	private LocalDate deliveryDate;
+	private LocalDateTime deliveryDate;
 	
 	@JsonIgnore
 	@OneToOne(targetEntity = Cart.class)
 	private Cart cart;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "payments",referencedColumnName = "paymentId")
-	private Payment payment;
-	
-	
 
 }

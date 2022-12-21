@@ -32,13 +32,13 @@ public class CartServiceImpl implements CartService {
 	private ProductRepository productRepo;
 
 	@Override
-	public Cart addProductToCart(CartDTO items,Long userId) 
+	public Cart addProductToCart(CartDTO items,String username) 
 			throws ProductException,CartException{
-
-			Optional<User> userOpt = userRepo.findById(userId);
 		
+			Optional<User> userOpt = userRepo.findByUsername(username);
 			if(userOpt.isPresent()) {
 				 User user = userOpt.get();
+				 
 				Optional<Cart> custCartOpt = cartRepo.findById(user.getCart().getCartId());
 				Optional<Product> productOpt = productRepo.findById(items.getProductId());
 				
@@ -72,10 +72,10 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Cart removeProductFromCart(Integer ProductId,Long userId)
-			throws ProductException{
+	public Cart removeProductFromCart(Integer ProductId,String username)
+			throws ProductException, CartException{
 
-		Optional<User> userOpt = userRepo.findById(userId);
+		Optional<User> userOpt = userRepo.findByUsername(username);
 		Optional<Product> prodOpt = productRepo.findById(ProductId);
 		
 		 if(userOpt.isPresent() && prodOpt.isPresent()) {
@@ -87,6 +87,8 @@ public class CartServiceImpl implements CartService {
 			 if(products.contains(prodOpt.get())) {
 				 products.remove(prodOpt.get());
 				 custCartOpt.get().setTotalExpenditure(total -prodOpt.get().getDiscountPrice());
+			 }else {
+				 throw new CartException("Product Is Not Present In Cart !");
 			 }
 			 
 			return cartRepo.save(custCartOpt.get());
@@ -99,9 +101,9 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public Double totalAmount(Long userId) throws CartException {
+	public Double totalAmount(String username) throws CartException {
 		
-			Optional<User> userOpt = userRepo.findById(userId);
+			Optional<User> userOpt = userRepo.findByUsername(username);
 			
 			if(userOpt.isPresent()) {
 				Optional<Cart> cartOpt =cartRepo.findById(userOpt.get().getCart().getCartId());
@@ -120,10 +122,11 @@ public class CartServiceImpl implements CartService {
 
 
 	@Override
-	public List<Product> allCartItems(Long userId) {
+	public List<Product> allCartItems(String username) {
 
+//		System.out.println("herrerere ");
 			
-		Optional<User> userOpt = userRepo.findById(userId);
+		Optional<User> userOpt = userRepo.findByUsername(username);
 		
 		if(userOpt.isPresent()) {
 			Optional<Cart> cartOpt =cartRepo.findById(userOpt.get().getCart().getCartId());

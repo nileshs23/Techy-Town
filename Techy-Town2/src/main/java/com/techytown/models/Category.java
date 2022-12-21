@@ -16,12 +16,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
 @Data
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor
 public class Category {
 
 	@Id
@@ -37,5 +39,13 @@ public class Category {
 	@JsonIgnore
 	@OneToMany(mappedBy = "category",cascade = CascadeType.REMOVE)
 	private List<Product> products = new ArrayList<>();
+
+	public Category(String type,String description) {
+		this.type = type;
+		this.description = description;
+	}
+
+	
+	
 	
 }

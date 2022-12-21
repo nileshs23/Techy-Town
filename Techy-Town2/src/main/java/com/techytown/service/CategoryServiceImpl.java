@@ -12,14 +12,14 @@ import com.techytown.exceptions.CategoryException;
 import com.techytown.exceptions.ProductException;
 import com.techytown.models.Category;
 import com.techytown.models.Product;
-import com.techytown.repository.CategoryRespository;
+import com.techytown.repository.CategoryRepository;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
 	
 	@Autowired
-	private CategoryRespository catRepo;
+	private CategoryRepository catRepo;
 	
 	@Override
 	public Category addNewCategory(Category category) 

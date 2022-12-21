@@ -1,21 +1,22 @@
 package com.techytown.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.techytown.enums.OrderStatus;
 import com.techytown.exceptions.CartException;
+import com.techytown.exceptions.OrderException;
 import com.techytown.models.Cart;
+import com.techytown.models.OrderDTO;
 import com.techytown.models.Orders;
-import com.techytown.models.Payment;
 import com.techytown.models.User;
 import com.techytown.repository.CardRepository;
 import com.techytown.repository.CartRepository;
 import com.techytown.repository.OrderRepository;
-import com.techytown.repository.PaymentRepository;
 import com.techytown.repository.UserRepository;
 
 @Service
@@ -31,13 +32,10 @@ public class OrderServiceImpl implements OrderService {
 	private CartRepository cartRepo;
 	
 	@Autowired
-	private PaymentRepository paymentRepo;
-	
-	@Autowired
 	private CardRepository cardRepo;
 
 	@Override
-	public Orders checkoutItems(Orders order,Long userId) throws UsernameNotFoundException, CartException{
+	public Orders checkoutItems(OrderDTO order,Long userId) throws UsernameNotFoundException, CartException{
 		Optional<User> userOpt = userRepo.findById(userId);
 		
 		if(userOpt.isPresent()) {
@@ -46,10 +44,17 @@ public class OrderServiceImpl implements OrderService {
 			
 			if(shoppingCartOpt.isPresent() 
 					&& shoppingCartOpt.get().getProducts().size() >0) {
-				order.setCart(shoppingCartOpt.get());
-//				order.getPayment().setAmt(shoppingCartOpt.get().getTotalExpenditure());
+				Orders ord = new Orders();
 				
-				return orderRepo.save(order);
+				ord.setCart(order.getItems());
+				ord.setOrderingDate(LocalDateTime.now());
+				ord.setDeliveryDate(LocalDateTime.now().plusSeconds(30));
+				ord.setStatus(OrderStatus.ORDER_IN_PROCESS);
+				
+				return orderRepo.save(ord);
+				
+				
+				
 			}else {
 				throw new CartException("Check Cart Once Again !");
 			}
@@ -60,9 +65,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Orders cancelOrder(Integer orderId) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public Orders cancelOrder(Integer orderId) throws OrderException {
+		Optional<Orders> orderOpt = orderRepo.findById(orderId);
+		if(orderOpt.isPresent()) {
+			orderRepo.delete(orderOpt.get());
+			return orderOpt.get();
+		}else {
+			throw new OrderException("Order Not Found !");
+		}
 	}
 
 

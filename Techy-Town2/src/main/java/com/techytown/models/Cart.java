@@ -21,13 +21,12 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cartId;
 	
-	
 	private double totalExpenditure;	
 	
 	@OneToMany
 	private List<Product> products = new ArrayList<>();
 	
-	@OneToOne
+	@OneToOne(targetEntity = User.class)
 	private User user;
 	
 	

@@ -23,12 +23,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techytown.enums.ERole;
+import com.techytown.models.Cart;
 import com.techytown.models.Role;
 import com.techytown.models.User;
 import com.techytown.payload.request.LoginRequest;
 import com.techytown.payload.request.SignupRequest;
 import com.techytown.payload.response.MessageResponse;
 import com.techytown.payload.response.UserInfoResponse;
+import com.techytown.repository.CartRepository;
 import com.techytown.repository.RoleRepository;
 import com.techytown.repository.UserRepository;
 import com.techytown.security.jwt.JwtUtils;
@@ -53,6 +55,9 @@ public class AuthController {
 
   @Autowired
   JwtUtils jwtUtils;
+  
+  @Autowired
+  private CartRepository cartRepository;
 
   @PostMapping("/login")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -122,8 +127,16 @@ public class AuthController {
       });
     }
 
+    Cart cart = new Cart();
+    Cart saved = cartRepository.save(cart);
+    
+
+    user.setCart(saved);
     user.setRoles(roles);
-    userRepository.save(user);
+    
+    User savedUser = userRepository.save(user);
+    saved.setUser(savedUser);
+    cartRepository.saveAndFlush(saved);
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }

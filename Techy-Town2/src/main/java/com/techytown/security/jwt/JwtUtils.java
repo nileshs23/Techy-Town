@@ -20,13 +20,13 @@ import io.jsonwebtoken.*;
 public class JwtUtils {
   private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-  @Value("${masai.app.jwtSecret}")
+  @Value("${techy.app.jwtSecret}")
   private String jwtSecret;
 
-  @Value("${masai.app.jwtExpirationMs}")
+  @Value("${techy.app.jwtExpirationMs}")
   private int jwtExpirationMs;
 
-  @Value("${masai.app.jwtCookieName}")
+  @Value("${techy.app.jwtCookieName}")
   private String jwtCookie;
 
   public String getJwtFromCookies(HttpServletRequest request) {
