@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -26,12 +29,14 @@ public class Card {
 	@Pattern(regexp = "^[0-9]{3}$")
 	private String cvv;
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	@NotNull(message = "Enter Valid Expiry Date For Card")
 	private LocalDate expiryDate;
 	
 	@NotNull(message = "You must provide Name to Order !")
 	private String cardHolderName;
 	
+	@JsonIgnore
 	@ManyToOne(targetEntity = User.class)
 	private User user;
 

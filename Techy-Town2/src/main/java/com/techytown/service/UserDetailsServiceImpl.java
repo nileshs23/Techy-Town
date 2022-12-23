@@ -1,5 +1,7 @@
 package com.techytown.service;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
@@ -43,6 +45,12 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		  roleRepository.save(user);
 		  roleRepository.save(admin);
 		  roleRepository.save(mod);
+	  }
+	  
+	  public Integer activeUsers() {
+		  List<User> users =  userRepository.findAll();
+		  
+		  return users.size();
 	  }
 	
 }

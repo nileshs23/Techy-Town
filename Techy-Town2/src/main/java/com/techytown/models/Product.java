@@ -1,11 +1,12 @@
 package com.techytown.models;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -15,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Data
@@ -43,7 +43,7 @@ public class Product {
 	private String img;
 	
 	@JsonIgnore
-	@ManyToOne()
+	@ManyToOne(targetEntity = Category.class)
 	private Category category;
 
 	public Product(String name,String description,Double mrp,Double discountPrice,String img) {

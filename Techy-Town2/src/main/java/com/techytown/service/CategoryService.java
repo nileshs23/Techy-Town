@@ -20,7 +20,7 @@ public interface CategoryService {
 	
 	public List<Product> getProductsByCategory(Integer catId) throws CategoryException,ProductException;
 	
-	public Set<Category> getAllCategories () throws CategoryException;
+	public Set<Category> getAllCategories() throws CategoryException;
 	
 	public Set<String> getCategoryTypes() throws CategoryException;
 }

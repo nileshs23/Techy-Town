@@ -1,5 +1,6 @@
 package com.techytown.exceptions;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
 
 import org.springframework.core.convert.ConversionFailedException;
@@ -17,6 +18,19 @@ import javax.persistence.RollbackException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+	
+	
+	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+	public ResponseEntity<MyErrorDetails> sqIntegrityHandler(SQLIntegrityConstraintViolationException ce,WebRequest wr){
+		MyErrorDetails err = new MyErrorDetails(ce.getMessage(), wr.getDescription(true),LocalDateTime.now() );
+		return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);
+	}
+	
+	@ExceptionHandler(CardException.class)
+	public ResponseEntity<MyErrorDetails> cardExceptionHandler(CardException ce,WebRequest wr){
+		MyErrorDetails err = new MyErrorDetails(ce.getMessage(), wr.getDescription(true),LocalDateTime.now() );
+		return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);
+	}
 	
 	@ExceptionHandler(OrderException.class)
 	public ResponseEntity<MyErrorDetails> orderException(OrderException oe,WebRequest wr){
