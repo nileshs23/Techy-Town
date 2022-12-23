@@ -25,9 +25,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product saveProduct(Product product,Integer categoryId) throws ProductException, CategoryException {
 		// TODO Auto-generated method stub
-		Optional<Product> productOpt = productRepo.findById(product.getProductId());
-		
-		if(productOpt.isEmpty()) {
 			Optional<Category> catOpt = catRepo.findById(categoryId);
 			if(catOpt.isPresent()){
 				
@@ -40,9 +37,6 @@ public class ProductServiceImpl implements ProductService {
 				throw new CategoryException("Category Does Not Exists !");
 			}
 			
-		}else {
-			throw new ProductException("Product Already Exists !");
-		}
 		
 		
 //		Product saved = catRepo.findById(categoryId).map(

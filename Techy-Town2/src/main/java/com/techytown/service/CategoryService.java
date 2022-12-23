@@ -10,7 +10,7 @@ import com.techytown.models.Product;
 
 public interface CategoryService {
 
-	public Category addNewCategory(Category category) throws CategoryException;
+	public Category addNewCategory(Category category);
 	
 	public Category updateCategory(Category category) throws CategoryException;
 	

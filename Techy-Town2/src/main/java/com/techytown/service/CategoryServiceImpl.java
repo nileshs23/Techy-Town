@@ -22,16 +22,8 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository catRepo;
 	
 	@Override
-	public Category addNewCategory(Category category) 
-			throws CategoryException{
-
-			Optional<Category> catExistsOpt = catRepo.findById(category.getCategoryId());
-			
-			if(catExistsOpt.isEmpty()) {
+	public Category addNewCategory(Category category){
 				return catRepo.save(category);
-			}else {
-				throw new CategoryException("Category Already Exists !");
-			}
 		
 	}
 
@@ -58,7 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
 		Optional<Category> catOpt = catRepo.findById(category.getCategoryId());
 		
 		if(catOpt.isPresent()) {
-			return catRepo.save(catOpt.get());
+			return catRepo.save(category);
 		}else {
 			throw new CategoryException("Category Not Found !");
 		}
