@@ -21,7 +21,7 @@
     <br />
     <br />
     .
-    <a href="https://github.com/nileshs23/Techy-Town">View Demo</a>
+    <a href="http://techytown2.ap-south-1.elasticbeanstalk.com/">View Demo</a>
     .
   </p>
 </div>
@@ -149,7 +149,8 @@ This Application Consist 6 Modules
 
 ## Login & Signup Modules
 
-- To perform any Operattion below this User / Admin needs to be loggedin.
+- Based Upon Spring Security and JWT tokenization.
+- It performs Regist,login and logout for User and Admins.
 - Payment History.
 
 ## Category Registration Module
@@ -170,11 +171,14 @@ This modules CRUD operation belongs to ADMIN only !
 
 ## Orders Module
 
-- This is Of Providing Orders and Payment Gateway
+- This is for Providing Orders and Payment Gateway
+- Giving order Receipts.
+- See all order details.
 
 ## Payment Module
 
-- This Module is Primarly Responsible for Enteries of Payment Details.
+- This Module is Primarly Responsible for Entries of Payment Details.
+- Adding Card Details,BHIM etc
 
 
 
