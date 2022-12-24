@@ -189,9 +189,13 @@ This modules CRUD operation belongs to ADMIN only !
 - [x] Added "Admin Controller" logics with Controlller.
 - [x] Added "User Controller" logics with Controlller.
 - [x] Added "ID" logics with Controlller.
-- [x] Tested Using Postman
-- [x] Tested Using Swagger
-- [ ] Uploading on AWS
+- [x] Tested Using Postman.
+- [x] Tested Using Swagger.
+- [x] Uploaded on AWS.
+- [x] Added API Documentationusing Thymeleaf.
+- [ ] Adding Banking System.
+- [ ] Changing Order Status and Payment Status.
+- [ ] Adding refined algorithms.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
