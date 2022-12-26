@@ -60,9 +60,8 @@
 ## About The Project
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/53571060/204786872-fd1a2e88-5c18-4725-801f-e61e04a0f50a.png" />
+<img src="https://user-images.githubusercontent.com/53571060/209521400-692aa24b-e805-4641-bde5-f2d0785f5ddf.png" />
 </p>
-
 
 
 This application will facilitate the customer as well as Admin to order the products you Love.
